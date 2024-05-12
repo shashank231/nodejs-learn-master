@@ -1,8 +1,9 @@
-const http = require('http');
+const http = require('http');  // global module
 
-const routes = require('./routes');
+const routes = require('./routes');  // local module
 
-const server = http.createServer(routes.handler);
+const server = http.createServer(routes.handler);  // don't execute here like routes.handler()
+                                                // this tells node to execute routes.handler for each incoming request
 
 // const server = http.createServer((req, res) => {
 //     const url = req.url;

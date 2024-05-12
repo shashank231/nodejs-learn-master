@@ -55,7 +55,7 @@ const requestHandler = (req, res) => {
     }
 }
 
-module.exports = {
+module.exports = {  // module.exports this is another keyword or object which is exposed globally by nodejs, which has a exports property
     handler : requestHandler,
     someText : 'Some hard coded text'
 }
