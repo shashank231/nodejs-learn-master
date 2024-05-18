@@ -3,7 +3,9 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');  // HERE the router is also a valid middleware function
+                                                // that's why we can use app.use('/admin/', adminRoutes)
+
 const shopRoutes = require('./routes/shop');
 
 const app = express();

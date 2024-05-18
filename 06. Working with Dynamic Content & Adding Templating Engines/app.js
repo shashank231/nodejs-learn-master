@@ -17,10 +17,12 @@ const shopRoutes = require('./routes/shop');
 // app.engine('hbs', expressHbs({layoutsDir: "views/layouts/", defaultLayout: "main-layout", extname: "hbs"}));
 // app.set('view engine', 'hbs');
 
-// for EJS template engine
-app.set('view engine', 'ejs');
+// for EJS template engine [IMP]
+app.set('view engine', 'ejs');  // app.set allow us to set any value gloablly in our express application
+                                // like a global configuration value
+                                // we can set anytype of values in this app.se
 
-app.set('views', 'views');
+app.set('views', 'views'); // [IMP] telling express where to find templates
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
