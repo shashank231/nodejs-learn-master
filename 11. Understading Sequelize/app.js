@@ -1,8 +1,6 @@
 const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const app = express();
 
 const sequelize = require('./util/database');
@@ -19,12 +17,10 @@ const Order = require('./models/order');
 const OrderItem = require('./models/order-item');
 
 app.set('view engine', 'ejs');
-
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use((req, res, next) => {
     User.findByPk(1)
         .then(user => {
@@ -33,17 +29,18 @@ app.use((req, res, next) => {
         })
         .catch(err => console.log(err));
 })
-
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(errorsController.get404);
+
 
 Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 // A Product belongs to a User, meaning a product has a foreign key (userId) pointing to the User model.
 // constraints: true enforces referential integrity, meaning Sequelize will ensure that the userId column references a valid User.
 // onDelete: 'CASCADE' ensures that when a User is deleted, all associated Products will be deleted as well.
 User.hasMany(Product);
-// A User can have many Products, establishing a one-to-many relationship where the User is the parent and the Product is the child. This complements the Product.belongsTo(User) relationship.
+// A User can have many Products, establishing a one-to-many relationship where the User is the parent and the Product is the child. 
+// This complements the Product.belongsTo(User) relationship.
 
 Cart.belongsTo(User);
 // A Cart belongs to a User, meaning the Cart has a foreign key (userId) pointing to the User. This complements the User.hasOne(Cart) relationship.
@@ -51,7 +48,8 @@ User.hasOne(Cart);
 // A User can have one Cart. This defines a one-to-one relationship between User and Cart. The Cart table will have a foreign key userId to reference the User.
 
 Product.belongsToMany(Cart, { through: CartItem });
-// A Product can belong to many Carts, and vice versa. This is a many-to-many relationship, where the association is managed through an intermediate model (CartItem). The CartItem model will store cartId and productId as foreign keys.
+// A Product can belong to many Carts, and vice versa. This is a many-to-many relationship, where the association is managed through an intermediate model (CartItem). 
+// The CartItem model will store cartId and productId as foreign keys.
 Cart.belongsToMany(Product, { through: CartItem });
 // A Cart can contain many Products, establishing the inverse of the previous relationship. Again, this relationship is mediated by the CartItem model.
 
